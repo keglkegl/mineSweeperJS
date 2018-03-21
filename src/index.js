@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.css';
-var i, j = 0;
 
 function Cell(props){
     if (props.mineFieldCellHidden){
@@ -51,26 +50,26 @@ class GameBoard extends React.Component{
     ];
     this.state = {
       mineFieldSetup : [
-        [[1, true], [2, true], [3, true]],
+        [[3, true], [2, true], [3, true]],
         [[4, true], [5, true], [6, true]],
         [[7, true], [8, true], [9, true]]
       ]
     };
-    this.tempVar = new Array(this.state.mineFieldSetup[0].length).fill(null);
   }
 
-  row(){
-    this.tempVar = this.tempVar.map(x => null);
-    for (j=0; j<this.state.mineFieldSetup[i].length; j++){
-        this.tempVar[j] = <Cell key={i.toString()+j.toString()} mineFieldCellNumber={this.state.mineFieldSetup[i][j][0]} mineFieldCellHidden={this.state.mineFieldSetup[i][j][1]}/>;
+  row(u){
+    var temp = new Array(this.state.mineFieldSetup[u].length).fill(null);
+    //temp = this.tempVar.map(x => null);
+    for (var j=0; j<this.state.mineFieldSetup[u].length; j++){
+        temp[j] = <Cell key={u.toString()+j.toString()} mineFieldCellNumber={this.state.mineFieldSetup[u][j][0]} mineFieldCellHidden={this.state.mineFieldSetup[u][j][1]}/>;
       }
 
-    return this.tempVar;
+    return temp;
   }
 
   render(){
-    for (i=0; i<this.state.mineFieldSetup.length; i++){
-      this.mineFieldBoard[i] = <div key={i.toString()}>{this.row()}</div>;
+    for (var i=0; i<this.state.mineFieldSetup.length; i++){
+      this.mineFieldBoard[i] = <div key={i.toString()}>{this.row(i)}</div>;
     }
     return this.mineFieldBoard;
   }
